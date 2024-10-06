@@ -40,7 +40,7 @@ app.post('/register', async (req, res) => {
     return res.status(400).send('All fields are required.');
   }
 
-  const checkUserSql = 'SELECT * FROM itqhub_uers WHERE email = ?';
+  const checkUserSql = 'SELECT * FROM itqhub_users WHERE email = ?';
   db.query(checkUserSql, [email], async (err, results) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -54,7 +54,7 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         db.query(
-          'INSERT INTO itqhub_uers (name, email, password, verification_token) VALUES (?, ?, ?, ?)',
+          'INSERT INTO itqhub_users (name, email, password, verification_token) VALUES (?, ?, ?, ?)',
           [name, email, hashedPassword, verificationToken],
           (err) => {
             if (err) {
@@ -94,7 +94,7 @@ app.get('/verify', (req, res) => {
 
   // You might want to check for token expiry if applicable
   const verifyUserSql = `
-    UPDATE itqhub_uers 
+    UPDATE itqhub_users 
     SET is_verified = true 
     WHERE verification_token = ? AND verification_token IS NOT NULL
   `;
@@ -121,7 +121,7 @@ app.get('/verify', (req, res) => {
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-  const sql = "SELECT * FROM itqhub_uers WHERE email = ?";
+  const sql = "SELECT * FROM itqhub_users WHERE email = ?";
   db.query(sql, [email], (err, results) => {
     if (err) {
       console.error('Error executing query:', err);
@@ -177,7 +177,7 @@ app.post('/forgot-password', async (req, res) => {
   }
 
   // Query to check if the email exists in the database and if the user is verified
-  const query = 'SELECT * FROM itqhub_uers WHERE email = ?';
+  const query = 'SELECT * FROM itqhub_users WHERE email = ?';
   db.query(query, [email], async (err, result) => {
       if (err) {
           console.error('Error querying the database:', err);
@@ -209,7 +209,7 @@ app.post('/forgot-password', async (req, res) => {
               const hashedPassword = await bcrypt.hash(password, 10);
 
               // Update the user's password in the database
-              const updateQuery = 'UPDATE itqhub_uers SET password = ? WHERE email = ?';
+              const updateQuery = 'UPDATE itqhub_users SET password = ? WHERE email = ?';
               db.query(updateQuery, [hashedPassword, email], (err) => {
                   if (err) {
                       console.error('Error updating the database:', err.message);
