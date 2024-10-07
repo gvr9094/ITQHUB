@@ -14,7 +14,6 @@ import Register from './Authorization/Register.jsx';
 import Verify from './Authorization/Verification.jsx';
 import ForgotPassword from './Authorization/ForgotPassword.jsx';
 import NotFound from './NotFound.jsx'; // Import the 404 component
-import ProtectedRoutes from './Utilities/ProtectedRoutes.jsx';
 import ScrollFromTop from './ScrollFromTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -28,11 +27,9 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route element={<ProtectedRoutes/>}>
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/aboutus" element={<About />} />
         <Route path="/courses" element={<Courses />} />
-        </Route>
         <Route path="*" element={<NotFound />} /> {/* Fallback route */}
       </Routes>
     </Router>
