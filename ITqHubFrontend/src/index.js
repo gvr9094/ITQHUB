@@ -9,10 +9,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme/theme';
 import About from './pages/About/About.jsx';
 import Courses from './pages/Courses/Courses.jsx';
-import Login from './Authorization/Login.jsx';
-import Register from './Authorization/Register.jsx';
-import Verify from './Authorization/Verification.jsx';
-import ForgotPassword from './Authorization/ForgotPassword.jsx';
 import NotFound from './NotFound.jsx'; // Import the 404 component
 import ScrollFromTop from './ScrollFromTop';
 
